@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/function.php';
+require_once __DIR__ . '/../function/function.php';
 require_once __DIR__ . '/../db/database.php';
 // Démarrer la session
 session_start();
@@ -10,8 +10,12 @@ session_start();
  */
 function checkIfLoggedIn() {
     if (!isset($_SESSION['user_id'])) {
-        redirect("/../login.php");
+        redirect("Accueil.php");
         exit();
+    }
+    else {
+        redirect("connexion.php");
+        exit;
     }
 }
 
@@ -71,7 +75,6 @@ function logoutUser() {
     // Détruire la session
     session_destroy();
 
-    // Rediriger vers la page de connexion après la déconnexion
-    redirect("/../login.php");
+    redirect("/Account/login-process.php");
     exit();
 }

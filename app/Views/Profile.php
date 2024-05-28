@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil</title>
-    <link rel="stylesheet" href="ProfileVisu.css">
+    <link rel="stylesheet" href="/../../public/css/ProfileVisu.css">
 </head>
 <body>
     <div class="container">
@@ -30,9 +30,6 @@
                 <label for="school">École :</label>
                 <input type="text" id="school" name="school" required>
 
-                <label for="email">Mail :</label>
-                <input type="email" id="email" name="email" required>
-
                 <label for="vehicle">Type de véhicule :</label>
                 <input type="text" id="vehicle" name="vehicle" required>
 
@@ -47,8 +44,8 @@
             </form>
         </main>
         <footer>
-                    <button class="footer-btn" onclick="window.location.href='index.html'">Accueil</button>
-                    <button class="footer-btn" onclick="window.location.href='publication.html'">Publication</button>
+                    <button class="footer-btn" onclick="window.location.href='Accueil.php'">Accueil</button>
+                    <button class="footer-btn" onclick="window.location.href='publication.php'">Publication</button>
                     <button class="footer-btn">Message</button>
         </footer>
     </div>

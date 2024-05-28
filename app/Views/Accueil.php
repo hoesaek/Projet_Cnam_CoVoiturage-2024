@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site de Covoiturage CNAM</title>
-    <link rel="stylesheet" href="AccueilVisu.css">
-</head>
-<body>
+<?php require_once __DIR__ . 'header.php'; ?>
     <div class="container">
         <header>
             <input type="text" class="search-bar" placeholder="Search...">
@@ -45,6 +37,6 @@
             <button class="footer-btn">Message</button>
         </footer>
     </div>
-    <script src="JSAccueil.js"></script>
+    
 </body>
 </html>

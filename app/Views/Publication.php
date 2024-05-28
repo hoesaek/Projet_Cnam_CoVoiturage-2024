@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publication de Covoiturage CNAM</title>
-    <link rel="stylesheet" href="PublicationVisu.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
-</head>
-<body>
+<?php require_once __DIR__ . 'header.php'; ?>
     <div class="container">
         <header>
             <div class="profile-menu">
@@ -64,6 +55,5 @@
         }
     </script>
     <script src="profileDropdown.js"></script>
-
 </body>
 </html>
