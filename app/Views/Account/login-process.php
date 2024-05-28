@@ -11,11 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($userId == $username) {
         //var_dump($userId,$username);
         loginUser($userId);
-        require_once __DIR__ . "/../Accueil.php" ;
+        redirect("/../../app/Views/Accueil.php") ;
         exit();
     } else {
         $error = "Identifiant ou mot de passe incorrect.";
-        redirect("index.php?error=Identifiant ou mot de passe incorrect.");
+        redirect("/../../app/Views/connexion.php?error=Identifiant ou mot de passe incorrect.");
     }
 }
 

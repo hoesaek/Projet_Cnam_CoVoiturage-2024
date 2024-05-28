@@ -1,0 +1,14 @@
+.register {
+    display: none; 
+  }
+  #switch {
+    position: fixed;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+  .form-container {
+    position: relative;
+    min-height: 100vh;
+  }

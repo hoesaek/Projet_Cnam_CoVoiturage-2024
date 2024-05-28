@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Vérifier si les mots de passe correspondent
     if ($password !== $repeatPassword) {
         
-        redirect("index.php?error=mots_de_passe_incorrect");
+        redirect("/../../app/Views/connexion.php?error=mots_de_passe_incorrect");
         exit; 
     } else {
         $options = ['memory_cost' => 1<<17, 'time_cost' => 4, 'threads' => 2]; 
@@ -24,17 +24,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $count = $stmt->fetchColumn();
         
         if ($count > 0) {
-            redirect("index.php?error=email_exists_or_ID_ara");
+            redirect("/../../app/Views/connexion.php?error=email_exists_or_ID_ara");
             exit;
         }
         
         $stmt = $pdo->prepare("INSERT INTO Utilisateur (id_ARA, Mail, MDP) VALUES (:ara, :email, :password)");
         $stmt->execute(['ara' => $ara, 'email' => $email, 'password' => $hashedPassword]);
         
-         redirect("../Accueil.php");
+         redirect("/../../app/Views/connexion.php");
         exit;
     }
 } else {
-    redirect("index.php");
+    require_once __DIR__ . "/../../app/Views/connexion.php";
     exit;
 }

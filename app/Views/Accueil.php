@@ -1,4 +1,12 @@
-<?php require_once __DIR__ . '/header.php'; ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Covoiturage CNAM</title>
+    <link rel="stylesheet" href="/../../public/css/AccueilVisu.css">
+</head>
+<body>
     <div class="container">
         <header>
             <input type="text" class="search-bar" placeholder="Search...">
@@ -6,7 +14,7 @@
             <div class="profile-menu">
                 <div class="profile-icon"></div>
                 <div class="profile-dropdown">
-                    <button>Mon Compte</button>
+                    <button>Mon Compte</button>l
                     <button>Mes Réservations</button>
                     <button>Paramètres</button>
                 </div>
@@ -35,8 +43,29 @@
         <footer>
             <button class="footer-btn">Publication</button>
             <button class="footer-btn">Message</button>
+            <button class="footer-btn">Se Deconnecté</button>
         </footer>
     </div>
     
+
+    <script>
+        function toggleDropdown() {
+    document.getElementById("profileDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.profile-icon')) {
+        var dropdowns = document.getElementsByClassName("profile-dropdown");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+
+    </script>
 </body>
 </html>
+

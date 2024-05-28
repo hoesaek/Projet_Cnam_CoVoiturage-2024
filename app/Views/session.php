@@ -10,11 +10,11 @@ session_start();
  */
 function checkIfLoggedIn() {
     if (!isset($_SESSION['user_id'])) {
-        redirect("Accueil.php");
+        redirect("/app/Views/Accueil.php");
         exit();
     }
     else {
-        redirect("connexion.php");
+        redirect("/app/Views/connexion.php");
         exit;
     }
 }
@@ -75,6 +75,6 @@ function logoutUser() {
     // Détruire la session
     session_destroy();
 
-    redirect("/Account/login-process.php");
+    redirect("/../../app/Views/connexion.php");
     exit();
 }

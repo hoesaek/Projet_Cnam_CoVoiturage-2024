@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/../../public/css/ProfileVisu.css">
     <link rel="stylesheet" href="/../../public/css/PublicationVisu.css">
     <link rel="stylesheet" href="/../../public/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css">
     <script src="/../../public/js/JSAccueil.js"></script>
     <script src="/../../public/js/JSPublication.js"></script>
 </head>
