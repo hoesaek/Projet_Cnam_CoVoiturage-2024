@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . 'header.php'; ?>
+<?php require_once __DIR__ . '/header.php'; ?>
     <div class="container">
         <header>
             <input type="text" class="search-bar" placeholder="Search...">

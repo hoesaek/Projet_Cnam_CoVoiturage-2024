@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/includes/function.php';
-require_once __DIR__ . '/includes/session.php';
+require_once __DIR__ . '/../../function/function.php';
+require_once __DIR__ . '/../session.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['email'];
@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($userId == $username) {
         //var_dump($userId,$username);
         loginUser($userId);
-        redirect("index.php?Connectionreussi");
+        require_once __DIR__ . "/../Accueil.php" ;
         exit();
     } else {
         $error = "Identifiant ou mot de passe incorrect.";
