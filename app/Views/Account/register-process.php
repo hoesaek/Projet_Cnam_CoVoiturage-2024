@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $pdo->prepare("INSERT INTO Utilisateur (id_ARA, Mail, MDP) VALUES (:ara, :email, :password)");
         $stmt->execute(['ara' => $ara, 'email' => $email, 'password' => $hashedPassword]);
         
-         redirect("index.php?success=connexion_reussi");
+         redirect("../Accueil.php");
         exit;
     }
 } else {

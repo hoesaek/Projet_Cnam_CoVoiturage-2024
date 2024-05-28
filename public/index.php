@@ -8,6 +8,6 @@ switch ($requestUri) {
         break;
     default:
         // Gérez les URL non trouvées (404)
-        require_once __DIR__ . '/../app/Views/404.php';
+        require_once __DIR__ . '/../app/Views/connexion.php';
         break;
 }
