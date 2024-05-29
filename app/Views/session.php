@@ -16,6 +16,7 @@ function checkIfLoggedIn() {
     else {
         redirect("/app/Views/connexion.php");
         exit;
+        //tee
     }
 }
 
