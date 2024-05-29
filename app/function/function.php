@@ -20,3 +20,8 @@ function afficherErreur($erreur) {
     }
 }
 
+function compare_dates($a, $b) {
+    $dateA = strtotime($a['date_depart']);
+    $dateB = strtotime($b['date_depart']);
+    return $dateA - $dateB;
+}

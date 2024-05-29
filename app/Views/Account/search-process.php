@@ -3,20 +3,16 @@ require_once __DIR__ . '/../../db/database.php';
 require_once __DIR__ . '/../../function/function.php';
 $pdo = Database::getInstance()->getConnection();
 
-$searchQuery = ''; 
-$searchParams = []; 
+$search = isset($_POST['search']) ? trim($_POST['search']) : '';
 
-if (isset($_GET['search']) && !empty($_GET['search'])) {
-    $search = '%' . $_GET['search'] . '%';
-    $searchQuery = ' AND (Intitule LIKE ? OR Lieu_depart LIKE ? OR Lieu_arrive LIKE ?)';
-    
-    $searchParams = array_fill(0, 3, $search);
+if ($search === '') {
+    header('Location: ../Accueil.php');
+    exit;
 }
 
-// Prépare la requête SQL avec la clause de recherche
-$stmt = $pdo->prepare('SELECT Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Plein = 0' . $searchQuery);
-// Exécute la requête en fournissant les paramètres de recherche si nécessaire
-$stmt->execute($searchParams);
+$stmt = $pdo->prepare('SELECT Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Plein = 0 AND Intitule LIKE :search');
+$stmt->execute(['search' => '%' . $search . '%']);
 $rows = $stmt->fetchAll();
 
-//redirect('../Accueil.php');
+$_SESSION['search_results'] = $rows;
+redirect('../Accueil.php');

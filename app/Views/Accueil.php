@@ -1,10 +1,25 @@
 <?php
 require_once __DIR__ . '/../db/database.php';
+require_once __DIR__ . '/../function/function.php';
+
+session_start();
 $pdo = Database::getInstance()->getConnection();
 
 $stmt = $pdo->prepare('SELECT Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Plein = 0');
 $stmt->execute();
 $rows = $stmt->fetchAll();
+
+if (!isset($_SESSION['search_results'])) {
+    // Si les résultats de la recherche ne sont pas présents dans la session, exécutez la requête par défaut
+    $stmt = $pdo->prepare('SELECT Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Plein = 0');
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // Utilisez les résultats de la recherche stockés dans la session
+    $rows = $_SESSION['search_results'];
+    // Trier le tableau des résultats par date de départ
+    usort($rows, 'compare_dates');
+}
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +37,7 @@ $rows = $stmt->fetchAll();
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <!-- Bouton de recherche -->
-                <form action="../../app/Views/Account/search-process.php" method="GET">
+                <form action="../../app/Views/Account/search-process.php" method="POST">
                     <input type="text" name="search" id="search-navbar" class="p-2 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...">
                     <button type="submit" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
                         <span class="sr-only">Search</span>
