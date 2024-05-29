@@ -1,25 +1,13 @@
 <?php
 require_once __DIR__ . '/../db/database.php';
 require_once __DIR__ . '/../function/function.php';
-
 session_start();
+
 $pdo = Database::getInstance()->getConnection();
 
-$stmt = $pdo->prepare('SELECT Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Plein = 0');
-$stmt->execute();
-$rows = $stmt->fetchAll();
-
-if (!isset($_SESSION['search_results'])) {
-    // Si les résultats de la recherche ne sont pas présents dans la session, exécutez la requête par défaut
     $stmt = $pdo->prepare('SELECT Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Plein = 0');
     $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} else {
-    // Utilisez les résultats de la recherche stockés dans la session
-    $rows = $_SESSION['search_results'];
-    // Trier le tableau des résultats par date de départ
-    usort($rows, 'compare_dates');
-}
 ?>
 
 <!DOCTYPE html>
@@ -87,25 +75,5 @@ if (!isset($_SESSION['search_results'])) {
 </main>
 
 <?php require_once __DIR__ . '/footer.php'; ?>
-
-<script>
-const toggle = document.getElementById('toggle');
-
-let printProfile = false;
-toggle.style.display = 'none';
-
-profile.addEventListener('click', (e) => {
-    console.log('profile clicked');
-    printProfile = !printProfile;
-    if (printProfile) {
-        //toggle.removeAttribute('hidden');
-        toggle.style.display = 'block';
-    } else {
-        //toggle.setAttribute('hidden', 'hidden');
-        toggle.style.display = 'none';
-    }
-});
-</script>
 </body>
 </html>
-
