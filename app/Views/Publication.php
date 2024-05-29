@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publication de Covoiturage CNAM</title>
-    <link rel="stylesheet" href="PublicationVisu.css">
+    <link rel="stylesheet" href="/../../public/css/PublicationVisu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.css">
 </head>
 <body>
@@ -47,7 +47,7 @@
             </form>
         </main>
         <footer>
-            <button class="footer-btn" onclick="window.location.href='index.html'">Accueil</button>
+            <button class="footer-btn" onclick="window.location.href='/../../app/Views/Accueil.php'">Accueil</button>
             <button class="footer-btn">Message</button>
         </footer>
     </div>
