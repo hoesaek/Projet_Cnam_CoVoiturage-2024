@@ -1,0 +1,94 @@
+/* Réinitialisation des styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #eee;
+    color: #333;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px auto;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #444;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.search-bar {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+}
+
+main {
+    padding: 20px;
+}
+
+.conversation {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.conversation-info {
+    flex: 1;
+}
+
+.conversation-info h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.conversation-info p {
+    color: #888;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #444;
+}
+
+.footer-btn {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #666;
+    color: #fff;
+}
+
+.footer-btn:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}

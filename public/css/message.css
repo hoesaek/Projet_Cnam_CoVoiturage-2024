@@ -31,15 +31,16 @@ header {
     background-color: #444;
 }
 
-.search-bar {
+/* .search-bar {
     padding: 10px;
     border: none;
     border-radius: 5px;
     width: 200px;
-}
+} */
 
 .profile-menu {
     position: relative;
+    width: 100%;
 }
 
 .profile-icon {
@@ -48,6 +49,7 @@ header {
     background-color: #bbb;
     border-radius: 50%;
     cursor: pointer;
+    float: right;
 }
 
 .profile-dropdown {
@@ -71,7 +73,7 @@ header {
     cursor: pointer;
 }
 
-.profile-dropdown button:hover {
+.profile-dropdown button:hover {    
     background-color: #555;
 }
 

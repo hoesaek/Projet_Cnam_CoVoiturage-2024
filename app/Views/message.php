@@ -8,10 +8,8 @@
     <script src="/../../public/js/message.js"></script>
 </head>
 <body>
-<button class="msg-btn" id="btn-send-message">Envoyer</button>
     <div class="container">
         <header>
-            <input type="text" class="search-bar" placeholder="Rechercher...">
             <div class="profile-menu">
                 <div class="profile-icon"></div>
                 <div class="profile-dropdown">
