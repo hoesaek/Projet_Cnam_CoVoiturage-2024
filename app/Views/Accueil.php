@@ -9,7 +9,6 @@ if (!isset($_SESSION['user_id'])) {
     redirect('./connexion.php');
 }
 
-$rows = isset($_SESSION['search_results']) ? $_SESSION['search_results'] : [];
 ?>
 
 <!DOCTYPE html>
@@ -94,7 +93,7 @@ $rows = isset($_SESSION['search_results']) ? $_SESSION['search_results'] : [];
                         >
                             <div class="px-4 py-3">
                                 <span class="block text-sm text-gray-900 dark:text-white">Name User </span>
-                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400">Mail user </span>
+                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400"><?php $_SESSION['user_id'] ; ?></span>
                             </div>
                             <ul class="py-2" aria-labelledby="user-menu-button">
                                 <li>
@@ -175,6 +174,7 @@ $rows = isset($_SESSION['search_results']) ? $_SESSION['search_results'] : [];
 <main class="mt-8 mb-8 flex flex-wrap justify-center">
     <?php foreach ($rows as $row) {
         // Récupérer les données de la base de données
+        $id = htmlspecialchars($row['id_Publication']);
         $Intitule = htmlspecialchars($row['Intitule']);
         $Place = htmlspecialchars($row['Place']);
         $date_depart = htmlspecialchars($row['date_depart']);
@@ -199,12 +199,18 @@ $rows = isset($_SESSION['search_results']) ? $_SESSION['search_results'] : [];
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
                 </svg>
             </button>
-            <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-toggle="<?php echo 'modal-' . $Intitule; ?>">
-                Envoyez un message
-                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-            </button>
+            <form action="./message.php" method="POST">
+    <input type="hidden" name="publicationid" value="<?php echo $row['id_Publication']; ?>">
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Envoyer un message
+        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+        </svg>
+    </button>
+</form>
+
+
+
         </div>
     </div>
     <?php } ?>

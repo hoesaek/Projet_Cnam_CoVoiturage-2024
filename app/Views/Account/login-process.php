@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Stocker l'ID de l'utilisateur dans la session
         loginUser($userId);
         // Rediriger vers la page d'accueil avec un message de succès
-        redirect("/app/Views/Accueil.php?success=$userId");
+        redirect("/app/Views/Accueil.php");
         exit();
     } else {
         // Rediriger vers la page de connexion avec un message d'erreur

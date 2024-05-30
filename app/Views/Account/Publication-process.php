@@ -11,28 +11,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Exécuter la requête en liant les paramètres
     $stmt->execute([':email_user' => $email_user]);
-
     
     $id_ara_row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Vérifier si un résultat a été trouvé
     if ($id_ara_row) {
-        $id_ara = $id_ara_row['Id_ARA'];}
+        $id_ara = $id_ara_row['Id_ARA'];
+    }
+
+    // Récupérer les données du formulaire
     $title = isset($_POST['title']) ? trim($_POST['title']) : '';
     $departure = isset($_POST['departure']) ? trim($_POST['departure']) : '';
     $arrive = isset($_POST['arrive']) ? trim($_POST['arrive']) : '';
     $dateDep = isset($_POST['date-depart']) ? $_POST['date-depart'] : '';
     $dateArr = isset($_POST['date-arriver']) ? $_POST['date-arriver'] : '';
-    $dateDep_obj = date_create_from_format('Y-m-d H:i', $dateDep); 
-    $dateArr_obj = date_create_from_format('Y-m-d H:i', $dateArr); 
-    $seats = isset($_POST['seats']) ? (int)$_POST['seats'] : 0;;
+    $seats = isset($_POST['seats']) ? (int)$_POST['seats'] : 0;
 
-
+    // Convertir les dates au format MySQL
     $dateDep_mysql = date('Y-m-d H:i:s', strtotime($dateDep));
     $dateArr_mysql = date('Y-m-d H:i:s', strtotime($dateArr));
 
     // Préparez et exécutez votre requête d'insertion
-    $stmt = $pdo->prepare("INSERT INTO Publication (Intitule, Lieu_depart, Lieu_Arrive, date_depart,date_arrive, Place, Id_ARA) VALUES (:title, :departure, :arrive, :dateDep,:dateArr, :seats, :id_ara)");
+    $stmt = $pdo->prepare("INSERT INTO Publication (Intitule, Lieu_depart, Lieu_Arrive, date_depart, date_arrive, Place, Id_ARA) VALUES (:title, :departure, :arrive, :dateDep, :dateArr, :seats, :id_ara)");
     $stmt->execute([
         ':title' => $title,
         ':departure' => $departure,
@@ -41,6 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':dateArr' => $dateArr_mysql, 
         ':seats' => $seats,
         ':id_ara' => $id_ara, 
-]);
-redirect('/../../app/Views/Accueil.php');
-}else{redirect('/../../app/Views/Accueil.php');}
+    ]);
+
+    // Stocker l'ID_ARA de la publication dans la session
+    $_SESSION['id-araPublication'] = $id_ara;
+    
+    // Rediriger après l'insertion
+    redirect('/../../app/Views/Accueil.php');
+} else {
+    // Rediriger si la méthode de requête n'est pas POST
+    redirect('/../../app/Views/Accueil.php');
+}

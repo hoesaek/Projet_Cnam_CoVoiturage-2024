@@ -8,14 +8,14 @@ $pdo = Database::getInstance()->getConnection();
 $search = isset($_POST['search']) ? trim($_POST['search']) : '';
 
 if (!empty($search)) {
-    $query = "SELECT Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Lieu_depart = :search ORDER BY date_depart DESC"; 
+    $query = "SELECT id_Publication, Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Lieu_depart = :search ORDER BY date_depart DESC"; 
     $statement = $pdo->prepare($query);
     $statement->bindValue(':search', $search, PDO::PARAM_STR);
     $statement->execute();
     $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
     $_SESSION['search_results'] = $rows;
 } else {
-    $stmt = $pdo->prepare('SELECT Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Plein = 0');
+    $stmt = $pdo->prepare('SELECT id_Publication, Intitule, Place, date_depart, date_arrive, Lieu_depart, Lieu_arrive FROM Publication WHERE Plein = 0');
     $stmt->execute();
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $_SESSION['search_results'] = $rows;
