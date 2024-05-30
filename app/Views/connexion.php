@@ -1,5 +1,5 @@
-<?php require_once __DIR__ . '/../function/function.php'; session_start(); 
-require_once __DIR__ . '/session.php'; ?>
+<?php 
+require_once __DIR__ . '/../function/function.php'; ?>
 
 <!DOCTYPE html>
 <html>

@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../function/function.php';
 require_once __DIR__ . '/../db/database.php';
-
+// Démarrer la session
+session_start();
 
 /**
  * Vérifie si un utilisateur est connecté
@@ -9,11 +10,11 @@ require_once __DIR__ . '/../db/database.php';
  */
 function checkIfLoggedIn() {
     if (!isset($_SESSION['user_id'])) {
-        redirect("./connexion.php");
+        redirect("/app/Views/Accueil.php");
         exit();
     }
     else {
-        redirect("./app/Views/Accueil.php");
+        redirect("/app/Views/connexion.php");
         exit;
     }
 }
@@ -60,7 +61,9 @@ function getidutilisateur($email, $password) {
 function logoutUser() {
     // Détruire toutes les variables de session
     $_SESSION = array();
- 
+
+    // Si vous voulez détruire la session complètement, effacez aussi le cookie de session.
+    // Notez : cela détruira la session, pas seulement les données de session.
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
         setcookie(session_name(), '', time() - 42000,
