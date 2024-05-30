@@ -1,14 +1,6 @@
-<?php session_start(); ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messages - Site de Covoiturage CNAM</title>
-    <link rel="stylesheet" href="/../../public/css/message.css">
-    <script src="/../../public/js/message.js"></script>
-</head>
+<?php session_start(); 
+require_once __DIR__ . 'header.php';
+?>
 <body>
     <div class="container">
         <header>

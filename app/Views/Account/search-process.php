@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . '/../../db/database.php';
 require_once __DIR__ . '/../../function/function.php';
-//session_start();
+
+checkIfLoggedIn();
 
 $pdo = Database::getInstance()->getConnection();
 

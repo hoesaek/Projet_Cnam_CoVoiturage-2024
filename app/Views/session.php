@@ -1,8 +1,7 @@
 <?php
 require_once __DIR__ . '/../function/function.php';
 require_once __DIR__ . '/../db/database.php';
-// Démarrer la session
-session_start();
+
 
 /**
  * Vérifie si un utilisateur est connecté
@@ -10,11 +9,11 @@ session_start();
  */
 function checkIfLoggedIn() {
     if (!isset($_SESSION['user_id'])) {
-        redirect("/app/Views/Accueil.php");
+        redirect("./connexion.php");
         exit();
     }
     else {
-        redirect("/app/Views/connexion.php");
+        redirect("./app/Views/Accueil.php");
         exit;
     }
 }

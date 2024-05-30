@@ -31,42 +31,7 @@ header {
     background-color: #444;
 }
 
-.profile-menu {
-    position: relative;
-}
 
-.profile-icon {
-    width: 40px;
-    height: 40px;
-    background-color: #bbb;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.profile-dropdown {
-    display: none;
-    position: absolute;
-    right: 0;
-    top: 50px;
-    background-color: #666;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.profile-dropdown button {
-    display: block;
-    padding: 10px;
-    border: none;
-    background-color: #666;
-    color: #fff;
-    text-align: left;
-    width: 100%;
-    cursor: pointer;
-}
-
-.profile-dropdown button:hover {
-    background-color: #555;
-}
 
 .form-container {
     padding: 20px;

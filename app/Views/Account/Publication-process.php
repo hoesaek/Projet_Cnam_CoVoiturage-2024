@@ -6,15 +6,18 @@ session_start();
 $pdo = Database::getInstance()->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Récupérer l'e-mail de l'utilisateur à partir de la session
-    $email_user = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
-
-    // Récupérer l'ID_ARA de l'utilisateur en utilisant l'e-mail
-    $stmt = $pdo->prepare("SELECT Id_ARA FROM Utilisateur WHERE Mail = :email_user");
+    $email_user = $_SESSION['user_id'];
+    $stmt = $pdo->prepare('SELECT Id_ARA FROM Utilisateur WHERE Mail = :email_user');
+    
+    // Exécuter la requête en liant les paramètres
     $stmt->execute([':email_user' => $email_user]);
-    $id_ara_row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $id_ara = $id_ara_row['Id_ARA'];
 
+    
+    $id_ara_row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Vérifier si un résultat a été trouvé
+    if ($id_ara_row) {
+        $id_ara = $id_ara_row['Id_ARA'];}
     $title = isset($_POST['title']) ? trim($_POST['title']) : '';
     $departure = isset($_POST['departure']) ? trim($_POST['departure']) : '';
     $arrive = isset($_POST['arrive']) ? trim($_POST['arrive']) : '';
@@ -39,6 +42,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ':seats' => $seats,
         ':id_ara' => $id_ara, 
 ]);
-redirect('/../../Views/Accueil.php');
+redirect('/../../app/Views/Accueil.php');
 }else{redirect('/../../app/Views/Accueil.php');}
-
