@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,11 +10,22 @@
     <script src="/../../public/js/message.js"></script>
 </head>
 <body>
-    <?php
+<?php
     
-    require_once __DIR__ . '/../db/database.php';
-    $pdo = Database::getInstance()->getConnection();
-    $utilisateurCo = 'user1';
+require_once __DIR__ . '/../db/database.php';
+$pdo = Database::getInstance()->getConnection();
+$user = $_SESSION['user_id'];
+
+// Récupération de l'ID_ARA de l'utilisateur
+$statement = $pdo->prepare("SELECT Id_ARA FROM Utilisateur WHERE Mail = :user");
+$statement->execute(array(
+    'user' => $user,
+));
+$rows = $statement->fetch(PDO::FETCH_ASSOC); // Utilisez fetch() pour récupérer une seule ligne
+$ID_ara = $rows['Id_ARA']; // Récupérez l'ID_ARA de la ligne
+
+// Identifier les utilisateurs concernés par la discussion (vous pouvez les remplacer par les IDs des utilisateurs spécifiques)
+$utilisateurCo = $ID_ara;
 
     $stmt = $pdo->prepare("SELECT * FROM Discussion WHERE Id_Ara_Envoyeur = :utilisateurCo OR Id_Ara_Destinataire = :utilisateurCo");
     // $stmt->execute('utilisateurCo' => $utilisateurCo);
@@ -20,6 +33,7 @@
         'utilisateurCo' => $utilisateurCo
     ));
     $discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // var_dump($discussions);
     ?>
     <div class="container">
         <header>
@@ -28,23 +42,35 @@
         </header>
         <main>
             <?php foreach ($discussions as $discussion): ?>
-            <div class="conversation" onclick="window.location.href='message.php?id=<?php echo $discussion['id_Discussion']; ?>'">
-                <div class="profile-icon"></div>
-                <div class="conversation-info">
-                    <?php
-                    // Remplacer les placeholders par les informations réelles des utilisateurs
-                    // À récupérer depuis votre base de données.
-                    $nomEnvoyeur = "Nom de l'envoyeur";
-                    $nomDestinataire = "Nom du destinataire";
-                    ?>
-                    <h2>Discussion avec <?php echo $nomEnvoyeur === $utilisateurCo ? $nomDestinataire : $nomEnvoyeur; ?></h2>
-                </div>
-            </div>
+                <form action="'message.php" method="POST">
+                    <div class="conversation">
+                        <div class="profile-icon"></div>
+                        <div class="conversation-info">
+                            <?php
+                            // Remplacer les placeholders par les informations réelles des utilisateurs
+                            // À récupérer depuis votre base de données.
+                            if ($discussion['Id_Ara_Envoyeur'] === $ID_ara) {
+                                $Id_Correspondant = $discussion['Id_Ara_Destinataire'];
+                            } else {
+                                $Id_Correspondant = $discussion['Id_Ara_Envoyeur'];
+                            }
+                            // Récupération de l'ID_ARA de l'utilisateur
+                            $statement = $pdo->prepare("SELECT Nom, Prenom FROM Utilisateur WHERE Id_ARA = :id_USER");
+                            $statement->execute(array(
+                                'id_USER' => $Id_Correspondant,
+                            ));
+                            $rows = $statement->fetch(PDO::FETCH_ASSOC); // Utilisez fetch() pour récupérer une seule ligne
+                            $nomEnvoyeur = $rows['Nom'] . ' ' . $rows['Prenom']; // Récupérez l'ID_ARA de la ligne
+                            
+                            ?>
+                            <h2>Discussion avec <?php echo $nomEnvoyeur === $utilisateurCo ? $nomDestinataire : $nomEnvoyeur; ?></h2>
+                        </div>
+                    </div>
+                </form>
             <?php endforeach; ?>
         </main>
         <footer>
-            <button class="footer-btn" onclick="window.location.href='Publication.html'">Publication</button>
-            <button class="footer-btn">Nouveau Message</button>
+            <button class="footer-btn"><a href="./Accueil.php">Publications</a></button>
         </footer>
     </div>
 </body>

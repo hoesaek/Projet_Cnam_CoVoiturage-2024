@@ -14,11 +14,11 @@ require_once __DIR__ . '/header.php';
             </div>
         </header>
         <main class="chat-container">
-            <div class="chat-box">
-                <?php
-                require_once __DIR__ . '/../db/database.php';
-                $pdo = Database::getInstance()->getConnection();
-                $user = $_SESSION['user_id'];
+    <div class="chat-box">
+<?php
+require_once __DIR__ . '/../db/database.php';
+$pdo = Database::getInstance()->getConnection();
+$user = $_SESSION['user_id'];
 
 // Récupération de l'ID_ARA de l'utilisateur
 $statement = $pdo->prepare("SELECT Id_ARA FROM Utilisateur WHERE Mail = :user");
