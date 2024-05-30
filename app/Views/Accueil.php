@@ -1,12 +1,14 @@
 <?php
+session_start();
 require_once __DIR__ . '/../db/database.php';
 require_once __DIR__ . '/../function/function.php';
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/Account/search-process.php';
 
+var_dump($_SESSION);
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
-    redirect('./connexion.php');
+    redirect('./connexion.php?error=Utilisateur%Non%Connecté');
 }
 
 ?>
@@ -97,7 +99,8 @@ if (!isset($_SESSION['user_id'])) {
                             </div>
                             <ul class="py-2" aria-labelledby="user-menu-button">
                                 <li>
-                                    <a
+                                    <
+                                    a
                                         href="#"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                         >Mon Compte</a
@@ -174,7 +177,6 @@ if (!isset($_SESSION['user_id'])) {
 <main class="mt-8 mb-8 flex flex-wrap justify-center">
     <?php foreach ($rows as $row) {
         // Récupérer les données de la base de données
-        $id = htmlspecialchars($row['id_Publication']);
         $Intitule = htmlspecialchars($row['Intitule']);
         $Place = htmlspecialchars($row['Place']);
         $date_depart = htmlspecialchars($row['date_depart']);
@@ -200,17 +202,14 @@ if (!isset($_SESSION['user_id'])) {
                 </svg>
             </button>
             <form action="./message.php" method="POST">
-    <input type="hidden" name="publicationid" value="<?php echo $row['id_Publication']; ?>">
-    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        Envoyer un message
-        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-        </svg>
-    </button>
-</form>
-
-
-
+                <input type="hidden" name="Intituler" value="<?php $Intitule; ?>">
+                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Envoyer un message
+                    <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                </button>
+            </form>
         </div>
     </div>
     <?php } ?>
@@ -222,3 +221,4 @@ if (!isset($_SESSION['user_id'])) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
 </body>
 </html>
+

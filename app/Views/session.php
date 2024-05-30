@@ -2,8 +2,6 @@
 require_once __DIR__ . '/../function/function.php';
 require_once __DIR__ . '/../db/database.php';
 
-// Démarrer la session
-session_start();
 
 /**
  * Vérifie si un utilisateur est connecté.
@@ -16,14 +14,6 @@ function checkIfLoggedIn() {
     }
 }
 
-/**
- * Connecter un utilisateur.
- * @param int $userId - L'ID de l'utilisateur.
- */
-function loginUser($userId) {
-    // Stocker l'ID de l'utilisateur dans la session
-    $_SESSION['user_id'] = $userId;
-}
 
 /**
  * Obtenir l'ID de l'utilisateur basé sur l'email et le mot de passe.

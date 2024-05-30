@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../function/function.php';
 require_once __DIR__ . '/../../db/database.php';
-require_once __DIR__ . '/../../session.php';
+require_once __DIR__ . '/../../Views/session.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire
