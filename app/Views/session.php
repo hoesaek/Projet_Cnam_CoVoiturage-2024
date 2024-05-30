@@ -1,28 +1,24 @@
 <?php
 require_once __DIR__ . '/../function/function.php';
 require_once __DIR__ . '/../db/database.php';
+
 // Démarrer la session
 session_start();
 
 /**
- * Vérifie si un utilisateur est connecté
- * Redirige vers la page de connexion s'il n'est pas connecté
+ * Vérifie si un utilisateur est connecté.
+ * Redirige vers la page de connexion s'il n'est pas connecté.
  */
 function checkIfLoggedIn() {
-    // if (!isset($_SESSION['user_id'])) {
-     if (!isset($_SESSION['user_id'])) {
-        // redirect("/app/Views/Accueil.php");
-        exit();
-    }
-    else {
+    if (!isset($_SESSION['user_id'])) {
         redirect("/app/Views/connexion.php");
-        exit;
+        exit();
     }
 }
 
 /**
- * Connecter un utilisateur
- * @param int $userId - L'ID de l'utilisateur
+ * Connecter un utilisateur.
+ * @param int $userId - L'ID de l'utilisateur.
  */
 function loginUser($userId) {
     // Stocker l'ID de l'utilisateur dans la session
@@ -30,10 +26,10 @@ function loginUser($userId) {
 }
 
 /**
- * Obtenir l'ID de l'utilisateur basé sur le nom d'utilisateur (email) et le mot de passe
- * @param string $username - L'email de l'utilisateur
- * @param string $password - Le mot de passe de l'utilisateur
- * @return mixed - L'ID de l'utilisateur si les informations d'identification sont correctes, sinon false
+ * Obtenir l'ID de l'utilisateur basé sur l'email et le mot de passe.
+ * @param string $email - L'email de l'utilisateur.
+ * @param string $password - Le mot de passe de l'utilisateur.
+ * @return mixed - L'ID de l'utilisateur si les informations d'identification sont correctes, sinon false.
  */
 function getidutilisateur($email, $password) {
     // Obtenez l'instance de connexion à la base de données
@@ -54,28 +50,16 @@ function getidutilisateur($email, $password) {
     return false;
 }
 
-
-
 /**
- * Déconnecter un utilisateur
+ * Déconnecter un utilisateur.
  */
 function logoutUser() {
     // Détruire toutes les variables de session
     $_SESSION = array();
 
-    // Si vous voulez détruire la session complètement, effacez aussi le cookie de session.
-    // Notez : cela détruira la session, pas seulement les données de session.
-    if (ini_get("session.use_cookies")) {
-        $params = session_get_cookie_params();
-        setcookie(session_name(), '', time() - 42000,
-            $params["path"], $params["domain"],
-            $params["secure"], $params["httponly"]
-        );
-    }
-
     // Détruire la session
     session_destroy();
 
-    redirect("/../../app/Views/connexion.php");
+    redirect('/app/Views/connexion.php');
     exit();
 }

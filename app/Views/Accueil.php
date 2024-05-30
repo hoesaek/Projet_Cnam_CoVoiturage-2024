@@ -3,10 +3,13 @@ require_once __DIR__ . '/../db/database.php';
 require_once __DIR__ . '/../function/function.php';
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/Account/search-process.php';
-$rows = $_SESSION['search_results'];
-if($_SESSION['user_id'] = null){
+
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['user_id'])) {
     redirect('./connexion.php');
-};
+}
+
+$rows = isset($_SESSION['search_results']) ? $_SESSION['search_results'] : [];
 ?>
 
 <!DOCTYPE html>

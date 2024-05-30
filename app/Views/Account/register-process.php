@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../function/function.php';
 require_once __DIR__ . '/../../db/database.php';
+require_once __DIR__ . '/../../session.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Récupérer les données du formulaire
@@ -11,7 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Vérifier si les mots de passe correspondent
     if ($password !== $repeatPassword) {
-        
         redirect("/../../app/Views/connexion.php?error=mots_de_passe_incorrect");
         exit; 
     } else {
@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $pdo->prepare("INSERT INTO Utilisateur (id_ARA, Mail, MDP) VALUES (:ara, :email, :password)");
         $stmt->execute(['ara' => $ara, 'email' => $email, 'password' => $hashedPassword]);
         
-         redirect("/../../app/Views/connexion.php");
+        redirect("/../../app/Views/connexion.php");
         exit;
     }
 } else {

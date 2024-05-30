@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . '/../db/database.php';
-session_start();
-
-$pdo = Database::getInstance()->getConnection();
+require_once __DIR__ . '/../session.php';  // Ajout de la session
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Récupérer les données soumises
@@ -28,8 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $_SESSION['publication_results'] = $rows;
 
-    
-    require_once __DIR__ . '/../../Views/Accueil.php';
-    exit;
+    // Rediriger vers la page d'accueil
+    header('Location: /../../Views/Accueil.php');
+    exit();
 }
-?>
