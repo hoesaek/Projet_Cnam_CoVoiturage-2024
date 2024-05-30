@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -24,44 +26,32 @@
                 <?php
                 require_once __DIR__ . '/../db/database.php';
                 $pdo = Database::getInstance()->getConnection();
-                
-                // Identifier les utilisateurs concernés par la discussion (vous pouvez les remplacer par les IDs des utilisateurs spécifiques)
-                $utilisateur1 = 'user2';
-                $utilisateur2 = 'user1';
-                
-                // Requête SQL pour récupérer les messages entre les deux utilisateurs
-                // $stmt = $pdo->prepare('SELECT u1.Nom AS nom_envoyeur, u2.Nom AS nom_destinataire, m.Message, m.heure_message 
-                //                          FROM Message m
-                //                          INNER JOIN Discussion d ON m.id_Discu = d.id_Discussion
-                //                          INNER JOIN Utilisateur u1 ON d.Id_Ara_Envoyeur = u1.Id_ARA
-                //                          INNER JOIN Utilisateur u2 ON d.Id_Ara_Destinataire = u2.Id_ARA
-                //                          WHERE (d.Id_Ara_Envoyeur = :utilisateur1 AND d.Id_Ara_Destinataire = :utilisateur2)
-                //                          OR (d.Id_Ara_Envoyeur = :utilisateur2 AND d.Id_Ara_Destinataire = :utilisateur1)
-                //                          ORDER BY m.heure_message');
-                // $stmt->execute(array(
-                //     'utilisateur1' => $utilisateur1,
-                //     'utilisateur2' => $utilisateur2
-                // ));
+                $user = $_SESSION['user_id'];
 
-                $stmt = $pdo->prepare('SELECT m.id_ARA_Envoi, u.Nom, m.Message, m.heure_message 
-                                         FROM Message m
-                                         INNER JOIN Utilisateur u ON m.id_ARA_Envoi = u.Id_ARA
-                                         WHERE (m.id_Discu IN (SELECT d.id_Discussion FROM Discussion d WHERE d.Id_Ara_Envoyeur = :utilisateur1 AND d.Id_Ara_Destinataire = :utilisateur2)
-                                                OR m.id_Discu IN (SELECT d.id_Discussion FROM Discussion d WHERE d.Id_Ara_Envoyeur = :utilisateur2 AND d.Id_Ara_Destinataire = :utilisateur1))
-                                         ORDER BY m.heure_message');
-                $stmt->execute(array(
-                    'utilisateur1' => $utilisateur1,
-                    'utilisateur2' => $utilisateur2
-                ));
-                
-                // Affichage des messages
-                // while ($message = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                //     echo '<div class="message ' . ($message['nom_envoyeur'] == 'Vous' ? 'sent' : 'received') . '">';
-                //     echo '<span class="username">' . $message['nom_envoyeur'] . '</span>';
-                //     echo '<p>' . $message['Message'] . '</p>';
-                //     echo '<span class="timestamp">' . $message['heure_message'] . '</span>';
-                //     echo '</div>';
-                // }
+// Récupération de l'ID_ARA de l'utilisateur
+$statement = $pdo->prepare("SELECT Id_ARA FROM Utilisateur WHERE Mail = :user");
+$statement->execute(array(
+    'user' => $user,
+));
+$rows = $statement->fetch(PDO::FETCH_ASSOC); // Utilisez fetch() pour récupérer une seule ligne
+$ID_ara = $rows['Id_ARA']; // Récupérez l'ID_ARA de la ligne
+
+// Identifier les utilisateurs concernés par la discussion (vous pouvez les remplacer par les IDs des utilisateurs spécifiques)
+$utilisateur1 = $ID_ara;
+$utilisateur2 = 'user2'; // Remplacez 'user2' par l'ID_ARA de l'utilisateur 2 si nécessaire
+
+// Récupération des messages entre les deux utilisateurs
+$stmt = $pdo->prepare('SELECT m.id_ARA_Envoi, u.Nom, m.Message, m.heure_message 
+                         FROM Message m
+                         INNER JOIN Utilisateur u ON m.id_ARA_Envoi = u.Id_ARA
+                         WHERE (m.id_Discu IN (SELECT d.id_Discussion FROM Discussion d WHERE d.Id_Ara_Envoyeur = :utilisateur1 AND d.Id_Ara_Destinataire = :utilisateur2)
+                                OR m.id_Discu IN (SELECT d.id_Discussion FROM Discussion d WHERE d.Id_Ara_Envoyeur = :utilisateur2 AND d.Id_Ara_Destinataire = :utilisateur1))
+                         ORDER BY m.heure_message');
+$stmt->execute(array(
+    'utilisateur1' => $utilisateur1,
+    'utilisateur2' => $utilisateur2
+));
+
                 while ($message = $stmt->fetch()) {
                     echo '<div class="message ' . ($message['id_ARA_Envoi'] == $utilisateur1 ? 'sent' : 'received') . '">';
                     echo '<span class="username">' . $message['Nom'] . '</span>';
@@ -78,8 +68,8 @@
             </div>
         </main>
         <footer>
-            <button class="footer-btn" onclick="window.location.href='Accueil.html'">Accueil</button>
-            <button class="footer-btn" onclick="window.location.href='Publication.html'">Publication</button>
+            <button class="footer-btn" onclick="window.location.href='Accueil.php'">Accueil</button>
+            <button class="footer-btn" onclick="window.location.href='Publication.php'">Publication</button>
         </footer>
     </div>
 </body>
