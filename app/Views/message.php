@@ -12,7 +12,7 @@ define('MSG_PROCESS_URL', '/../../app/Views/Account/msg-process.php');
 $pdo = Database::getInstance()->getConnection();
 
 $user_id = $_SESSION['user_id'] ?? null;
-$Intitulpublication = isset($_POST['Intituler']) ? $_POST['Intituler'] : null;
+$publicationID = isset($_POST['Intituler']) ? $_POST['Intituler'] : null;
 
 function getUserIdARA($pdo, $user_id)
 {
@@ -23,16 +23,16 @@ function getUserIdARA($pdo, $user_id)
 }
 
 // Fonction pour récupérer l'ID_ARA associé à la publication
-function getPublicationARA($pdo, $Intitulpublication)
+function getPublicationARA($pdo, $publicationID)
 {
-    $statement = $pdo->prepare("SELECT Id_ARA FROM Publication WHERE Intitule = :Intitulpublication");
-    $statement->execute(['Intitulpublication' => $Intitulpublication]);
+    $statement = $pdo->prepare("SELECT Id_ARA FROM Publication WHERE id_Publication = :publicationID");
+    $statement->execute(['publicationID' => $publicationID]);
     $row = $statement->fetch(PDO::FETCH_ASSOC);
     return $row ? $row['Id_ARA'] : null;
 }
 
 $id_ara = getUserIdARA($pdo, $user_id);
-$other_user_ara = getPublicationARA($pdo, $Intitulpublication);
+$other_user_ara = getPublicationARA($pdo, $publicationID);
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +65,7 @@ $other_user_ara = getPublicationARA($pdo, $Intitulpublication);
                 <!-- Formulaire d'envoi de message -->
                 <form action="<?php echo MSG_PROCESS_URL; ?>" method="POST"> <!-- Utilisation de la constante MSG_PROCESS_URL -->
                     <!-- Champ caché pour stocker l'ID de la publication -->
-                    <input type="hidden" name="Intitulpublication" value="<?php echo $Intitulpublication; ?>">
+                    <input type="hidden" name="publicationID" value="<?php echo $publicationID; ?>">
                     <input type="text" name="message" placeholder="Écrire un message..." required>
                     <button type="submit" class="msg-btn">Envoyer</button>
                 </form>

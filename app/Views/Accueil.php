@@ -5,7 +5,7 @@ require_once __DIR__ . '/../function/function.php';
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/Account/search-process.php';
 
-var_dump($_SESSION);
+// var_dump($_SESSION);
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
     redirect('./connexion.php?error=Utilisateur%Non%Connecté');
@@ -177,6 +177,7 @@ if (!isset($_SESSION['user_id'])) {
 <main class="mt-8 mb-8 flex flex-wrap justify-center">
     <?php foreach ($rows as $row) {
         // Récupérer les données de la base de données
+        $idPublication = htmlspecialchars($row['id_Publication']);
         $Intitule = htmlspecialchars($row['Intitule']);
         $Place = htmlspecialchars($row['Place']);
         $date_depart = htmlspecialchars($row['date_depart']);
@@ -202,7 +203,7 @@ if (!isset($_SESSION['user_id'])) {
                 </svg>
             </button>
             <form action="./message.php" method="POST">
-                <input type="hidden" name="Intituler" value="<?php $Intitule; ?>">
+                <input type="hidden" name="publicationId" value="<?php $idPublication; ?>">
                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Envoyer un message
                     <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
