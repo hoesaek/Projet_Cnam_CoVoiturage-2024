@@ -9,8 +9,9 @@ session_start();
  * Redirige vers la page de connexion s'il n'est pas connecté
  */
 function checkIfLoggedIn() {
-    if (!isset($_SESSION['user_id'])) {
-        redirect("/app/Views/Accueil.php");
+    // if (!isset($_SESSION['user_id'])) {
+     if (!isset($_SESSION['user_id'])) {
+        // redirect("/app/Views/Accueil.php");
         exit();
     }
     else {

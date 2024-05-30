@@ -4,6 +4,9 @@ require_once __DIR__ . '/../function/function.php';
 require_once __DIR__ . '/session.php';
 require_once __DIR__ . '/Account/search-process.php';
 $rows = $_SESSION['search_results'];
+if($_SESSION['user_id'] = null){
+    redirect('./connexion.php');
+};
 ?>
 
 <!DOCTYPE html>

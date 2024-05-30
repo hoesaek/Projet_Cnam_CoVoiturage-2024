@@ -1,5 +1,7 @@
 <?php 
-require_once __DIR__ . '/../function/function.php'; ?>
+require_once __DIR__ . '/../function/function.php'; 
+require_once __DIR__ . '/session.php'; 
+?>
 
 <!DOCTYPE html>
 <html>
