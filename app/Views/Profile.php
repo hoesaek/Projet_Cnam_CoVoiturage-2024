@@ -9,12 +9,21 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" />
     </head>
     <body>
-        <header>
-            <nav class="bg-white border-gray-200 dark:bg-gray-900">
-                <!-- MODIF  -->
-
-                <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <img src="./logo.png" class="h-8" alt="Logo" />
+    <header>
+    <nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                    <img src="./../../public/images/logo.png" class="h-8" alt="Logo" />
+                    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <!-- Bouton pour ouvrir le menu principal -->
+                <button data-collapse-toggle="navbar-search" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-search" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
 
                     <!-- Dropdown Avatar -->
                     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -27,7 +36,7 @@
                             data-dropdown-placement="bottom"
                         >
                             <!-- <span class="sr-only">Open user menu</span> -->
-                            <img class="w-8 h-8 rounded-full" src="./chat.jpeg" alt="user photo" />
+                            <img class="w-8 h-8 rounded-full" src="/../../public/images/chat.jpeg" alt="user photo" />
                             <span
                                 class="top-0 left-7 absolute w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"
                             ></span>
@@ -40,83 +49,53 @@
                             id="user-dropdown"
                         >
                             <div class="px-4 py-3">
-                                <span class="block text-sm text-gray-900 dark:text-white">Name User </span>
-                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400">Mail user </span>
+                                <!-- <span class="block text-sm text-gray-900 dark:text-white">Name User </span> -->
+                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400"></span>
                             </div>
                             <ul class="py-2" aria-labelledby="user-menu-button">
                                 <li>
                                     <a
-                                        href="#"
+                                        href="./Parametre.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                        >Mon Compte</a
+                                        >Parametre</a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                        >Mes réservations</a
-                                    >
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
+                                        href="./MyPublications.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                         >Mes publications</a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
+                                        href="./mesdiscussions.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                         >Mes conversations</a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        href="./Parametre.html"
+                                        href="./Profile.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                        >Paramètres</a
+                                        >Profil</a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
+                                        href="./Account/logout-process.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                         >Déconnexion</a
                                     >
                                 </li>
                             </ul>
                         </div>
-                        <button
-                            data-collapse-toggle="navbar-user"
-                            type="button"
-                            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                            aria-controls="navbar-user"
-                            aria-expanded="false"
-                        >
-                            <span class="sr-only">Open main menu</span>
-                            <svg
-                                class="w-5 h-5"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 17 14"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M1 1h15M1 7h15M1 13h15"
-                                />
-                            </svg>
-                        </button>
                     </div>
                 </div>
                 <!-- end -->
-            </nav>
-        </header>
+       
+    </nav>
+</header>
 
         <!-- MAIN TAILWIND -->
         <main class="mt-4 flex flex-wrap justify-center bg-slate-300 h-screen">

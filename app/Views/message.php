@@ -49,18 +49,18 @@ $other_user_ara = getPublicationARA($pdo, $publicationID);
     <div class="container">
     <header>
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <img src="./../../public/images/logo.png" class="h-8" alt="Logo" />
                     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                 <!-- Bouton de recherche -->
-                <!-- <form action="" method="POST">
-                    <input type="text" name="search" id="search-navbar" class="p-2 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...">
+                <form action="" method="POST">
+                    <input type="text" name="search" id="search-navbar" class="p-2 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="D'où voulez-vous partir ?">
                     <button type="submit" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
                         <span class="sr-only">Search</span>
                         Rechercher
                     </button>
-                </form> -->
+                </form>
                 <!-- Bouton pour ouvrir le menu principal -->
                 <button data-collapse-toggle="navbar-search" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-search" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
@@ -96,14 +96,14 @@ $other_user_ara = getPublicationARA($pdo, $publicationID);
                         >
                             <div class="px-4 py-3">
                                 <!-- <span class="block text-sm text-gray-900 dark:text-white">Name User </span> -->
-                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400"><?php echo $user_id ; ?></span>
+                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400"><?php echo $email_user ; ?></span>
                             </div>
                             <ul class="py-2" aria-labelledby="user-menu-button">
                                 <li>
                                     <a
-                                        href="#"
+                                        href="./Parametre.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                        >Mes réservations</a
+                                        >Parametre</a
                                     >
                                 </li>
                                 <li>
@@ -122,9 +122,9 @@ $other_user_ara = getPublicationARA($pdo, $publicationID);
                                 </li>
                                 <li>
                                     <a
-                                        href="./Parametre.html"
+                                        href="./Profile.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                        >Paramètres</a
+                                        >Profil</a
                                     >
                                 </li>
                                 <li>
