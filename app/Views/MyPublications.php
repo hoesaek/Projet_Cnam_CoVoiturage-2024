@@ -1,42 +1,48 @@
-<?php session_start(); ?>
+<?php
+session_start();
 
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['user_id'])) {
+    // Rediriger vers la page de connexion
+    header("Location: login.php");
+    exit; // Arrêter le script
+}
+
+// Inclure le fichier de connexion à la base de données
+require_once __DIR__ . '/../db/database.php';
+$pdo = Database::getInstance()->getConnection();
+
+// Récupérer l'ID_ARA de l'utilisateur connecté
+$user_id = $_SESSION['user_id'];
+
+// Préparer la requête SQL pour sélectionner les publications de l'utilisateur connecté
+$query = "SELECT * FROM `publication` WHERE Id_ARA = :user_id";
+
+// Préparer la requête
+$stmt = $pdo->prepare($query);
+
+// Liaison des paramètres
+$stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+
+// Exécuter la requête
+$stmt->execute();
+
+// Récupérer toutes les publications de l'utilisateur connecté
+$publications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Discussions - Site de Covoiturage CNAM</title>
+    <title>Site de Covoiturage CNAM</title>
     <link rel="stylesheet" href="/../../public/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css">
-    <script src="/../../public/js/message.js"></script>
 </head>
 <body>
-<?php
-    
-require_once __DIR__ . '/../db/database.php';
-$pdo = Database::getInstance()->getConnection();
-$user = $_SESSION['user_id'];
-// Récupération de l'ID_ARA de l'utilisateur
-$statement = $pdo->prepare("SELECT Id_ARA FROM Utilisateur WHERE Mail = :user");
-$statement->execute(array(
-    'user' => $user,
-));
-$rows = $statement->fetch(PDO::FETCH_ASSOC); // Utilisez fetch() pour récupérer une seule ligne
-$ID_ara = $rows['Id_ARA']; // Récupérez l'ID_ARA de la ligne
-
-// Identifier les utilisateurs concernés par la discussion (vous pouvez les remplacer par les IDs des utilisateurs spécifiques)
-$utilisateurCo = $ID_ara;
-
-$stmt = $pdo->prepare("SELECT * FROM Discussion WHERE Id_Ara_Envoyeur = :utilisateurCo OR Id_Ara_Destinataire = :utilisateurCo");
-$stmt->execute(array(
-    'utilisateurCo' => $utilisateurCo
-));
-$discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// var_dump($discussions);
-?>
 <header>
-            <nav class="bg-white border-gray-200 dark:bg-gray-900">
-            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                     <img src="./../../public/images/logo.png" class="h-8" alt="Logo" />
                     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -57,8 +63,30 @@ $discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </button>
             </div>
         </div>
-                <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    
+        
+                        <!-- Date pickers  -->
+                        <div class="relative max-w-sm mr-8">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                <svg
+                                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                >
+                                    <path
+                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"
+                                    />
+                                </svg>
+                            </div>
+                            <input
+                                datepicker
+                                type="text"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Select date"
+                            />
+                        </div>
+
                     <!-- Dropdown Avatar -->
                     <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
                         <button
@@ -70,7 +98,7 @@ $discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             data-dropdown-placement="bottom"
                         >
                             <!-- <span class="sr-only">Open user menu</span> -->
-                            <img class="w-8 h-8 rounded-full" src="./../../public/images/chat.jpeg" alt="user photo" />
+                            <img class="w-8 h-8 rounded-full" src="./chat.jpeg" alt="user photo" />
                             <span
                                 class="top-0 left-7 absolute w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"
                             ></span>
@@ -83,17 +111,10 @@ $discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             id="user-dropdown"
                         >
                             <div class="px-4 py-3">
-                                <!-- <span class="block text-sm text-gray-900 dark:text-white">Name User </span> -->
-                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400"><?php echo $user ?>; </span>
+                                <span class="block text-sm text-gray-900 dark:text-white">Name User </span>
+                                <span class="block text-sm text-gray-500 truncate dark:text-gray-400"><?php echo $user_id ; ?></span>
                             </div>
                             <ul class="py-2" aria-labelledby="user-menu-button">
-                                <li>
-                                    <a
-                                        href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                        >Mon Compte</a
-                                    >
-                                </li>
                                 <li>
                                     <a
                                         href="#"
@@ -103,14 +124,14 @@ $discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
+                                        href="./MyPublications.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                         >Mes publications</a
                                     >
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
+                                        href="./mesdiscussions.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                         >Mes conversations</a
                                     >
@@ -124,7 +145,7 @@ $discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
+                                        href="./Account/logout-process.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                         >Déconnexion</a
                                     >
@@ -158,39 +179,37 @@ $discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
                 <!-- end -->
-            </nav>
-        </header>
-    <main>
-        <?php foreach ($discussions as $discussion): ?>
-            <form action="message.php" method="POST">
-                <div class="conversation">
-                    <div class="profile-icon"></div>
-                    <div class="conversation-info">
-                        <?php
-                        // Remplacer les placeholders par les informations réelles des utilisateurs
-                        // À récupérer depuis votre base de données.
-                        if ($discussion['Id_Ara_Envoyeur'] === $ID_ara) {
-                            $Id_Correspondant = $discussion['Id_Ara_Destinataire'];
-                        } else {
-                            $Id_Correspondant = $discussion['Id_Ara_Envoyeur'];
-                        }
-                        // Récupération de l'ID_ARA de l'utilisateur
-                        $statement = $pdo->prepare("SELECT Nom, Prenom FROM Utilisateur WHERE Id_ARA = :id_USER");
-                        $statement->execute(array(
-                            'id_USER' => $Id_Correspondant,
-                        ));
-                        $rows = $statement->fetch(PDO::FETCH_ASSOC); // Utilisez fetch() pour récupérer une seule ligne
-                        $nomCorrespondant = $rows['Nom'] . ' ' . $rows['Prenom']; // Récupérez l'ID_ARA de la ligne
-                        
-                        ?>
-                        <h2>Discussion avec <?php echo $nomCorrespondant; ?></h2>
-                    </div>
-                </div>
-            </form>
-        <?php endforeach; ?>
-    </main>
+       
+    </nav>
+</header>
+
+<?php
+foreach ($publications as $publication): 
+    
+    // Récupérer les données de la base de données
+    $idPublication = htmlspecialchars($publication['id_Publication']);
+    $Intitule = htmlspecialchars($publication['Intitule']);
+    $Place = htmlspecialchars($publication['Place']);
+    $date_depart = htmlspecialchars($publication['date_depart']);
+    $date_arrive = htmlspecialchars($publication['date_arrive']);
+    $Lieu_depart = htmlspecialchars($publication['Lieu_depart']);
+    $Lieu_arrive = htmlspecialchars($publication['Lieu_arrive']);
+    ?>
+
+    <div class="max-w-sm w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/4 p-6 item-center">
+        <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?php echo $Intitule; ?></h5>
+            </a>
+            <p class="mb-2 font-normal text-gray-700 dark:text-gray-400"><?php echo $Lieu_depart; ?> ➔ <?php echo $Lieu_arrive; ?></p>
+            <p class="mb-2 font-normal text-gray-700 dark:text-gray-400"><strong>Date de départ : </strong><?php echo $date_depart; ?></p>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><strong>Date d'arrivée :</strong> <?php echo $date_arrive; ?></p>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><strong>Places disponibles : </strong><?php echo $Place; ?></p>
+        </div>
+    </div>
+<?php endforeach; ?>
+
 <?php require_once __DIR__ . '/footer.php'; ?>
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>

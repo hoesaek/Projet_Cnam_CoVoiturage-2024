@@ -25,7 +25,6 @@ nav {
     position: relative;
     align-items: center;
     padding: 10px 10px;
-    background-color: #444;
 }
 
 /* Input de recherche */
@@ -60,33 +59,6 @@ nav > button:hover {
 }
 
 
-
-/* Footer */
-
-footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 150px;
-    padding: 10px 20px;
-    background-color: #444;
-}
-
-footer > p {
-    margin: 0;
-    color: #eee;
-    font-weight: bold;
-    padding: 20px;
-}
-
-footer > #end-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #444;
-}
 
 #end-section > button {
     border: none;

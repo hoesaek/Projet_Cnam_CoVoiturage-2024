@@ -18,7 +18,7 @@ body {
     width: 100%;
     max-width: 1200px;
     background-color: #eee;
-    color: #333;
+    color: #948888;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -70,21 +70,7 @@ form input, form select {
     background-color: #555;
 }
 
-footer {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    background-color: #444;
-}
 
-.footer-btn {
-    margin: 0 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #666;
-    color: #fff;
-}
 
 @media (max-width: 768px) {
     .search-bar, .date-filter {

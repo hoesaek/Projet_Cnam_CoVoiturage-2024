@@ -11,6 +11,7 @@ $query = 'SELECT m.id_ARA_Envoi, u.Nom, m.Message, m.heure_message
           ORDER BY m.heure_message';
 $stmt = $pdo->query($query);
 
+
 // Affichage des messages
 while ($message = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo '<div class="message ' . ($message['id_ARA_Envoi'] == $id_ara ? 'sent' : 'received') . '">';

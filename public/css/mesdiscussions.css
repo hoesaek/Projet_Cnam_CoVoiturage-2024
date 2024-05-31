@@ -72,24 +72,3 @@ main {
 .conversation-info p {
     color: #888;
 }
-
-footer {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    background-color: #444;
-}
-
-.footer-btn {
-    margin: 0 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #666;
-    color: #fff;
-}
-
-.footer-btn:hover {
-    background-color: #555;
-    transform: scale(1.05);
-}
