@@ -1,4 +1,3 @@
-```markdown
 # Projet de Fin d'Étude - Licence CNAM : Co-Voiturage 2024
 
 ## Description
@@ -20,8 +19,6 @@ Ce projet a été réalisé dans le cadre de la Licence en Développement Web du
 
 ## Structure du Projet
 
-```
-
 ├── app/                # Logique métier
 ├── config/             # Configuration de l'application
 ├── public/             # Dossier public (index.php, assets)
@@ -29,7 +26,6 @@ Ce projet a été réalisé dans le cadre de la Licence en Développement Web du
 ├── projet-bddlocal.sql # Script SQL pour la base de données
 └── readme.md           # Ce fichier
 
-````
 
 ## Installation
 
@@ -38,7 +34,7 @@ Ce projet a été réalisé dans le cadre de la Licence en Développement Web du
    ```bash
    git clone https://github.com/hoesaek/Projet_Cnam_CoVoiturage-2024.git
    cd Projet_Cnam_CoVoiturage-2024
-````
+   ```
 
 2. Importez le fichier `projet-bddlocal.sql` dans votre base de données MySQL.
 
